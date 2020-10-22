@@ -1,62 +1,90 @@
 import React from 'react';
-import './App.css';
-import Header from './components/Header'
-import {AiOutlineRise} from 'react-icons/ai'
-import {AiOutlineAlignRight} from 'react-icons/ai'
-import {AiFillHome} from 'react-icons/ai'
+import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
+
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import Home from './pages/Home'
-import Yahoo from './pages/Yahoo' 
-import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
 
 
-function App() {
-  const basicSubreddits=[
-    {title:'home',
-    icon: <AiFillHome/>,
-    link:'link'
-    },
-    {title:'popular',
-    icon:<AiOutlineRise/>,
-    link:'link'
-    },
-    {title:'All',
-    icon:<AiOutlineAlignRight/>,
-    link:'link'
-    },
-]
-  return (
-    <div className="App">
-      <Header basicSubreddits={basicSubreddits}/>
-      <Router>
-        <div className='text-center'>
-        <Link to='/yahoo'><Button>Yahoo</Button></Link>
-        <Link to='/home'><Button>Home</Button></Link>
-        </div>
-        <Route 
-          path='/yahoo'
-          exact render={()=><Yahoo
-          title={'yahoo-page'}
-            />
-          }/>
+import './App.css';
 
-        <Route 
-          path='/home'
-          exact render={()=><Home
-          title={'home-page'}
-            />
-          }/>
-      </Router>
-      
-    </div>
-  );
+class App extends React.Component{
+  componentDidMount(){
+    document.title = "Nyitrai Zsolt"
+  }
+  constructor(props){
+    super(props)
+    this.state={
+      title:"Nyitrai Zsolt",
+      headeLinks:[
+        {title:'Home',path:'/'},
+        {title:'About',path:'/about'},
+        {title:'Contact',path:'/contact'}
+      ],
+      home:{
+        title:'Welcome',
+        subtitle:'To my Portfolio',
+        text:'Check out my projects'
+      },
+      about:{
+        title:'About Me'
+      },
+      contact:{
+        title:'Contact Me'
+      }
+    }
+  }
+  render(){
+  return(
+    <Router>
+      <Container className='p-0 body-background' fluid={true}>
+        <Navbar  className='border-bottom' bg="dark" variant="dark" expand='md' >
+          <Navbar.Brand style={{fontSize: 40}}>Nyitrai Zsolt</Navbar.Brand>
+
+          <Navbar.Toggle className='border-0' aria-controls='navbar-toggle'/>
+          <Navbar.Collapse id='navbar-toggle'>
+            <Nav className='ml-auto' variant='dark' bg='dark'>
+              <Link className='nav-link' to='/'>Home</Link>
+              <Link className='nav-link' to='/about'>About</Link>
+              <Link className='nav-link' to='/contact'>Contact</Link>
+
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
+        <Route path='/' 
+          exact render= {()=><HomePage 
+          title={this.state.home.title} 
+          subtitle={this.state.home.subtitle}
+          text={this.state.home.text}
+          />
+        }/>
+        <Route path='/About'
+          exact render={()=><AboutPage
+          title={this.state.about.title}
+          />
+        }/>  
+        <Route path='/Contact'
+          exact render={()=><ContactPage
+          title={this.state.contact.title}
+          />
+        }/>  
+
+        <Footer/>
+      </Container>
+
+    </Router>
+  )
+  }
 }
-
 export default App;
-
-
