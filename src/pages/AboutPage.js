@@ -84,7 +84,7 @@ const AboutPage=(props)=>{
             <Hero title={props.title}/>
             <Content >
                 <div className='description'>Hello, my name is Zsolt, I am learning to be a<code> Web Developer</code>.</div>
-                <div className='description'>I am have a basic knowledge of:</div>
+                <div className='description'>I have a basic knowledge of:</div>
             </Content>
                 
             <Row lg={3} md={4} sm={12} className='justify-content-center'>
