@@ -1,6 +1,5 @@
 import React from 'react'
 import CardInfo from'../components/CardInfo'
-import Content from '../components/Content'
 
 
 const Card= (props)=>{
